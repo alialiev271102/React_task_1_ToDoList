@@ -71,12 +71,33 @@
     padding: 10px 20px;
     margin: 20px 0;
     background: black;
+    display: flex;
+
 }
 
 .task:nth-child(2n) {
     background: red;
 }
 
+
+.task-btns {
+    margin-left: auto;
+}
+
+.edit-btn:hover,
+.delete-btn:hover{
+    border: none;
+    stroke: white;
+}
+
+.delete-btn,
+.edit-btn {
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    margin-left: 10px;
+}
 
 @media screen and (max-width: 400px) {
     .title {

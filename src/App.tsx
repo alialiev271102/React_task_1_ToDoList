@@ -1,4 +1,6 @@
 import reactLogo from './assets/react.svg'
+import editBtn from './assets/edit-btn.svg'
+import deleteBtn from './assets/delete-btn.svg'
 import './App.css'
 import {Input} from "./components/input/Input";
 import {useState} from "react";
@@ -25,9 +27,11 @@ function App() {
     .map((str: string, i: number) => <li key={i + str} className='task'>{str}
       <div className='task-btns'>
         <button className='edit-btn'>
-
+          <img src={editBtn} alt="edit-btn"/>
         </button>
-        <button className='delete-btn'>x</button>
+        <button className='delete-btn'>
+          <img src={deleteBtn} alt="delete-btn"/>
+        </button>
       </div>
     </li>)
     .reverse();
