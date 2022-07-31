@@ -1,0 +1,25 @@
+.input {
+    flex-grow: 1;
+    font-size: 22px;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+}
+
+.input-div {
+    display: flex;
+    max-width: 1000px;
+    margin: 40px auto 0;
+    gap: 10px;
+}
+
+@media screen and (max-width: 480px) {
+    .input {
+        font-size: 16px;
+    }
+
+    .input-div {
+        flex-direction: column;
+
+    }
+}
+
