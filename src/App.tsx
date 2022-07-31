@@ -10,17 +10,25 @@ function App() {
   const todoListJson = localStorage.getItem("todoList");
   let todoList: string[] = [];
   let [tasks, setTasks] = useState(['']);
+  tasks = [];
   if (todoListJson) {
     todoList = JSON.parse(todoListJson);
     tasks = todoList;
   }
   console.log(() => todoList);
-  const someFun = (value: string) => {
+  const addTask = (value: string) => {
     todoList.push(value);
     setTasks(todoList);
     localStorage.setItem('todoList', JSON.stringify(todoList));
-    console.log(JSON.stringify(todoList));
+  }
 
+  const deleteTask = (value: string) => {
+    const index = todoList.indexOf(value);
+    if (index !== -1) {
+      todoList.splice(index, 1);
+      localStorage.setItem('todoList', JSON.stringify(todoList));
+      setTasks(todoList);
+    }
   }
 
   const view = () => tasks
@@ -29,7 +37,7 @@ function App() {
         <button className='edit-btn'>
           <img src={editBtn} alt="edit-btn"/>
         </button>
-        <button className='delete-btn'>
+        <button className='delete-btn' onClick={() => deleteTask(str)}>
           <img src={deleteBtn} alt="delete-btn"/>
         </button>
       </div>
@@ -45,7 +53,7 @@ function App() {
         </a>
       </header>
       <div>
-        <Input handleClick={someFun}/>
+        <Input handleClick={addTask}/>
       </div>
       <ul className='task-list'>
         {view()}
