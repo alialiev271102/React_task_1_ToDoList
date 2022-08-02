@@ -8,6 +8,7 @@ import {useState} from "react";
 
 function App() {
   const todoListJson = localStorage.getItem("todoList");
+  let [editStatus, setStatus] = useState('');
   let todoList: string[] = [];
   let [tasks, setTasks] = useState(['']);
   tasks = [];
@@ -15,11 +16,15 @@ function App() {
     todoList = JSON.parse(todoListJson);
     tasks = todoList;
   }
-  console.log(() => todoList);
+
   const addTask = (value: string) => {
-    todoList.push(value);
-    setTasks(todoList);
-    localStorage.setItem('todoList', JSON.stringify(todoList));
+    if (todoList.indexOf(value) === -1) {
+      todoList.push(value);
+      setTasks(todoList);
+      localStorage.setItem('todoList', JSON.stringify(todoList));
+    } else {
+      alert('You already that task!');
+    }
   }
 
   const deleteTask = (value: string) => {
@@ -31,17 +36,31 @@ function App() {
     }
   }
 
+  const editTask = (value: string) => {
+    const index = todoList.indexOf(value);
+    setStatus(value);
+    const editTask = prompt('Change task');
+    if (editTask) {
+      todoList[index] = editTask;
+    }
+    localStorage.setItem('todoList', JSON.stringify(todoList));
+    setTasks(todoList);
+  }
+
   const view = () => tasks
-    .map((str: string, i: number) => <li key={i + str} className='task'>{str}
-      <div className='task-btns'>
-        <button className='edit-btn'>
-          <img src={editBtn} alt="edit-btn"/>
-        </button>
-        <button className='delete-btn' onClick={() => deleteTask(str)}>
-          <img src={deleteBtn} alt="delete-btn"/>
-        </button>
-      </div>
-    </li>)
+    .map((str: string, i: number) => {
+        return <li key={i + str} className='task'>{str}
+          <div className='task-btns'>
+            <button className='edit-btn' onClick={() => editTask(str)}>
+              <img src={editBtn} alt="edit-btn"/>
+            </button>
+            <button className='delete-btn' onClick={() => deleteTask(str)}>
+              <img src={deleteBtn} alt="delete-btn"/>
+            </button>
+          </div>
+        </li>
+
+    })
     .reverse();
 
   return (
